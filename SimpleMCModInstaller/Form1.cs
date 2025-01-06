@@ -6,8 +6,6 @@ namespace SimpleMCModInstaller
     public partial class MainForm : Form
     {
         BackgroundWorker worker;
-        List<string> modFileList = new();
-        List<string> modFileList_WithPath = new();
         int nowfileIndex = 0;
 
         public MainForm()
@@ -44,8 +42,8 @@ namespace SimpleMCModInstaller
                     for (int i = 0; i < dialog.FileNames.Length; i++)
                     {
                         data?.Add(new filePathName { fileName = dialog.SafeFileNames[i], filePath = dialog.FileNames[i] });
-                        modFileList.Add(dialog.SafeFileNames[i]);
-                        modFileList_WithPath.Add(dialog.FileNames[i]);
+                        //modFileList.Add(dialog.SafeFileNames[i]);
+                        //modFileList_WithPath.Add(dialog.FileNames[i]);
                     }
                 }
 
@@ -55,8 +53,8 @@ namespace SimpleMCModInstaller
                     Debug.WriteLine("SelectedFilePath : " + dialog.FileName);
 
                     data?.Add(new filePathName { fileName = dialog.SafeFileName, filePath = dialog.FileName });
-                    modFileList.Add(dialog.SafeFileName);
-                    modFileList_WithPath.Add(dialog.FileName);
+                    //modFileList.Add(dialog.SafeFileName);
+                    //modFileList_WithPath.Add(dialog.FileName);
                 }
 
                 dialog.Dispose();
@@ -92,8 +90,10 @@ namespace SimpleMCModInstaller
 
         private void Worker_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
+            BindingList<filePathName>? data = ModList_dataGridView.DataSource as BindingList<filePathName>;
+
             this.progressBar1.Value = e.ProgressPercentage;
-            InstallingFileText.Text = modFileList[nowfileIndex] + " 파일 작업 중..";
+            InstallingFileText.Text = data?[nowfileIndex] + " 파일 작업 중..";
         }
 
         private void Worker_DoWork(object? sender, DoWorkEventArgs e)
@@ -145,11 +145,11 @@ namespace SimpleMCModInstaller
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            int gridX = flowLayoutPanel1.Location.X;   //그리드컨트롤의 시작 X 좌표
-            int gridY = flowLayoutPanel1.Location.Y;  //그리드컨트롤의 시작 Y 좌표
+            int gridX = flowLayoutPanel1.Location.X;  
+            int gridY = flowLayoutPanel1.Location.Y;  
 
-            flowLayoutPanel1.Width = this.Width - (gridX * 2 + 20); //보기 좋게 적당한 사이즈로 계산
-            flowLayoutPanel1.Height = this.Height - gridY - 55; // 보기 좋게 적당한 사이즈로 계산
+            flowLayoutPanel1.Width = this.Width - (gridX * 2 + 20); 
+            flowLayoutPanel1.Height = this.Height - gridY - 55; 
 
             progressBar1.Width = flowLayoutPanel1.Width - 15;
 
