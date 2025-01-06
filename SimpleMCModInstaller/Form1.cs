@@ -66,9 +66,11 @@ namespace SimpleMCModInstaller
             Add_ModFile_Button.Enabled = false;
             Install_Button.Enabled = false;
 
-            worker = new BackgroundWorker();
-            worker.WorkerReportsProgress = true;
-            worker.WorkerSupportsCancellation = true;
+            worker = new BackgroundWorker
+            {
+                WorkerReportsProgress = true,
+                WorkerSupportsCancellation = true
+            };
 
             worker.DoWork += Worker_DoWork;
             worker.ProgressChanged += Worker_ProgressChanged;
@@ -126,6 +128,8 @@ namespace SimpleMCModInstaller
             else
             {
                 MessageBox.Show("마인크래프트가 설치되어 있지 않지 않습니다. 재설치 후, 다시 시도하세요.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Process.Start("https://apps.microsoft.com/detail/9PGW18NPBZV5?hl=ko-kr&gl=KR&ocid=pdpshare");
+
                 worker.CancelAsync();
             }
         }
