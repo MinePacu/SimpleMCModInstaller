@@ -151,9 +151,9 @@ namespace SimpleMCModInstaller
             flowLayoutPanel1.Width = this.Width - (gridX * 2 + 20); //보기 좋게 적당한 사이즈로 계산
             flowLayoutPanel1.Height = this.Height - gridY - 55; // 보기 좋게 적당한 사이즈로 계산
 
-            progressBar1.Width = this.Width - (gridX * 2 + 20);
+            progressBar1.Width = flowLayoutPanel1.Width - 15;
 
-            ModList_dataGridView.Width = flowLayoutPanel1.Width - 30;
+            ModList_dataGridView.Width = flowLayoutPanel1.Width - 15;
             ModList_dataGridView.Height = flowLayoutPanel1.Height - (progressBar1.Height + InstallingFileText.Height) - 50;
         }
     }
